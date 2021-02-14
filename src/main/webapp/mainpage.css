@@ -1,0 +1,85 @@
+body{
+    background-color: black;
+}
+
+div#space{
+    height: 25%;
+    width: 100%;
+}
+
+div#welcome, div#registration{
+    border-style: double;
+    border-width: 5px;
+    padding-top: 20px;
+    margin-left: 40%;
+    margin-right: 40%;
+    color: sandybrown;
+    border-color: gray;
+    width: 350px;
+    text-align: right;
+}
+
+div#welcome{
+    height: 200px;
+
+}
+div#registration{
+    height: 250px;
+    display: none;
+}
+
+span, #registration button{
+    margin-right: 15px;
+    text-align: center;
+}
+
+input {
+    background-color: gray;
+    border-color: gray;
+    height: 32px;
+    width: 250px;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+button{
+    font-size: 20px;
+    height: 32px;
+    width: 250px;
+    margin-right: 15px;
+}
+
+#failLoginInfo{
+    font-size: 23px;
+    margin-top: 25px;
+    text-align: center;
+    color: red;
+}
+
+#goButton, #registerButton{
+    background-color: lawngreen;
+    border-color: lawngreen;
+    font-size: 20px;
+}
+
+#GoRegisterButton, #backbutton{
+    background-color: yellow;
+    border-color: yellow;
+}
+#GoRegisterButton:hover{
+    background-color: lawngreen;
+    border-color: lawngreen;
+}
+
+#backbutton:hover{
+    background-color: red;
+    border-color: red;
+}
+
+#InfoForLoggedUser{
+    color: green;
+}
+
+
+
+

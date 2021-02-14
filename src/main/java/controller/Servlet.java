@@ -1,6 +1,7 @@
 package controller;
 
 import service.user.UserService;
+import service.utilites.PasswordEncoder;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -13,12 +14,12 @@ import java.io.IOException;
 @WebServlet(name = "Servlet", urlPatterns = "")
 public class Servlet extends HttpServlet {
     @Inject
-    private UserService userService;
+    private PasswordEncoder passwordEncoder;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       userService.xx();
+       passwordEncoder.provideSalt();
     }
 }

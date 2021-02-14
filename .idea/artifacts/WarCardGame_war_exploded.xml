@@ -16,6 +16,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: javax.mvc:javax.mvc-api:1.0.0" />
           <element id="library" level="project" name="Maven: org.jboss.weld.servlet:weld-servlet:2.2.14.Final" />
+          <element id="library" level="project" name="Maven: com.microsoft.sqlserver:mssql-jdbc:9.2.0.jre11" />
         </element>
       </element>
       <element id="directory" name="META-INF">

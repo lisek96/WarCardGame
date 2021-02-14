@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 
-
 public class MD5PasswordEncoder implements PasswordEncoder {
     @Override
     public byte[] provideSalt() {
@@ -26,13 +25,14 @@ public class MD5PasswordEncoder implements PasswordEncoder {
         return sb.toString();
     }
 
-    public byte[] convertHexadecimalStringToBytes(String s){
-        byte[] result = new byte[s.length()/2];
-        int i=0;
-        while(s.length()!=0){
+    @Override
+    public byte[] convertHexadecimalStringToBytes(String s) {
+        byte[] result = new byte[s.length() / 2];
+        int i = 0;
+        while (s.length() != 0) {
             result[i] = (byte) Integer.parseInt(s.substring(0, 2), 16);
             i++;
-            s=s.substring(2);
+            s = s.substring(2);
         }
         return result;
     }
