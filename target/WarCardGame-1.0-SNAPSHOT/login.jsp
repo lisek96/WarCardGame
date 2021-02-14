@@ -31,6 +31,7 @@
     </form>
     <button id="backbutton">Back</button>
 </div>
-<script src="test.js"></script>
+<footer>WarCardGame</footer>
 </body>
+<script src="/test.js"></script>
 </html>

@@ -1,3 +1,4 @@
+
 let addActionListeners = () => {
     document.getElementById("GoRegisterButton").addEventListener("mouseenter", function () {
         this.textContent = "Click to register!";
