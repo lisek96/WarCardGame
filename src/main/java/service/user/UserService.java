@@ -1,6 +1,7 @@
 package service.user;
 
 import repository.user.UserDAO;
+import service.activationLink.ActivationLinkService;
 import service.utilites.PasswordEncoder;
 
 import javax.inject.Inject;
@@ -10,6 +11,8 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Inject
     private UserDAO userDAO;
+    @Inject
+    ActivationLinkService activationLinkService;
 
 
     String checkAvailabilityAndReturnInfo(String login, String email){
@@ -25,6 +28,10 @@ public class UserService {
 
 
         return "correct";
+    }
+
+    void activateUser(){
+
     }
 
 
