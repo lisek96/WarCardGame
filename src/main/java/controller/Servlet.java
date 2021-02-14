@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Servlet", urlPatterns = "")
+@WebServlet(name = "Servlet", urlPatterns = "/Servlet")
 public class Servlet extends HttpServlet {
     @Inject
     private PasswordEncoder passwordEncoder;

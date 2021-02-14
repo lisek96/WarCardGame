@@ -6,22 +6,24 @@ form{
     border-style: double;
     border-width: 6px;
     width: 400px;
-    height: 200px;
+    height: 165px;
     margin: 10% auto auto;
     background-color: darkolivegreen;
+    font-size: 6px;
 }
 
 form#registrationForm{
     display: none;
+    height: 200px;
 }
 
 .formElements{
     border-color: black;
     border-style: solid;
     border-width: 1px;
-    margin-left: 125px;
+    margin-left: 80px;
     margin-top: 10px;
-    width: 150px;
+    width: 240px;
     height: 25px;
 }
 
@@ -30,8 +32,8 @@ form#registrationForm{
     border-style: solid;
     border-width: 1px;
     margin-top: 10px;
-    margin-left: 125px;
-    width: 158px;
+    margin-left: 80px;
+    width: 245px;
     height: 25px;
     color: black;
     background-color: green;
@@ -46,5 +48,9 @@ footer{
 }
 
 #NoAcc{
+    background-color: yellow;
+}
+
+#goBack{
     background-color: yellow;
 }
