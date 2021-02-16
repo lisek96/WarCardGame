@@ -1,26 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Main Page</title>
-    <link rel="stylesheet" href="mainpage.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<form id="loginForm" action="/Login" method="post">
+<div id="succRegInfo"><c:out value="${requestScope.succRegistrationAttempt}"></c:out></div>
+<div id="failRegInfo"><c:out value="${requestScope.failRegistrationAttempt}"></c:out></div>
+<form id="loginForm" action="Login" method="post">
     <div><input class="formElements" type="text" name="login" value="Login"></div>
     <div><input class="formElements" type="password" name="password" value="password"></div>
     <div><input class="buttons" id="goButton" type="submit" value="Go!"></div>
     <div><button class="buttons" type="reset" id="NoAcc">No account?</button></div>
 </form>
 
-<form id="registrationForm" action="/Register" method="post">
+<form id="registrationForm" action="Register" method="post">
     <div><input class="formElements" type="text" name="login" value="Login"></div>
     <div><input class="formElements" type="password" name="password" value="password"></div>
     <div><input class="formElements" type="text" name="email" value="email"></div>
     <div><input class="buttons" id="register" type="submit" value="Register!"></div>
-    <div><button class="buttons" type="reset" id="goBack">go back</button></div>
+    <div><button class="buttons" type="reset" id="goBack">Go back</button></div>
 </form>
 <footer>WarCardGame</footer>
-<script src="newLogin.js"></script>
+<script src="index.js"></script>
 </body>
 </html>

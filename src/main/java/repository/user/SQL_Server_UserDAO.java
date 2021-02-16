@@ -13,35 +13,34 @@ public class SQL_Server_UserDAO implements UserDAO {
     public void create(User user) {
         CallableStatement callableStatement = null;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
-        try {
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
             String sql = "EXEC createNewUser ?, ?, ?, ?";
-            Connection connection = sql_server_dbConnectionProvider.provideConnection();
-            callableStatement=connection.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1, user.getLogin());
             callableStatement.setString(2, user.getPassword());
             callableStatement.setString(3, user.getSalt());
             callableStatement.setString(4, user.getEmail());
-            connection.close();
-        }catch (SQLException | ClassNotFoundException e){
+            callableStatement.execute();
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public Integer getIDByLogin(String login) {
         CallableStatement callableStatement = null;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try
 
-                (Connection connection = sql_server_dbConnectionProvider.provideConnection())
-        {
+                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
             String sql = "EXEC getIDByLogin ?";
-            callableStatement=connection.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1, login);
             ResultSet resultSet = callableStatement.executeQuery();
-            if(resultSet.next()) return resultSet.getInt(1);
-        }catch (SQLException | ClassNotFoundException e){
+            if (resultSet.next()) return resultSet.getInt(1);
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -53,15 +52,14 @@ public class SQL_Server_UserDAO implements UserDAO {
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try
 
-                (Connection connection = sql_server_dbConnectionProvider.provideConnection())
-        {
+                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
             String sql = "EXEC getIDByEmail ?";
-            callableStatement=connection.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1, email);
             ResultSet resultSet = callableStatement.executeQuery();
-            if(resultSet.next()) return resultSet.getInt(1);
-        }catch (SQLException | ClassNotFoundException e){
+            if (resultSet.next()) return resultSet.getInt(1);
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -73,15 +71,14 @@ public class SQL_Server_UserDAO implements UserDAO {
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try
 
-                (Connection connection = sql_server_dbConnectionProvider.provideConnection())
-        {
+                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
             String sql = "EXEC getPasswordByLogin ?";
-            callableStatement=connection.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1, login);
             ResultSet resultSet = callableStatement.executeQuery();
-            if(resultSet.next()) return resultSet.getString(1);
-        }catch (SQLException | ClassNotFoundException e){
+            if (resultSet.next()) return resultSet.getString(1);
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -93,15 +90,14 @@ public class SQL_Server_UserDAO implements UserDAO {
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try
 
-                (Connection connection = sql_server_dbConnectionProvider.provideConnection())
-        {
+                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
             String sql = "EXEC getSaltByLogin ?";
-            callableStatement=connection.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1, login);
             ResultSet resultSet = callableStatement.executeQuery();
-            if(resultSet.next()) return resultSet.getString(1);
-        }catch (SQLException | ClassNotFoundException e){
+            if (resultSet.next()) return resultSet.getString(1);
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -113,15 +109,14 @@ public class SQL_Server_UserDAO implements UserDAO {
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try
 
-                (Connection connection = sql_server_dbConnectionProvider.provideConnection())
-        {
+                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
             String sql = "EXEC setActivated ? ?";
-            callableStatement=connection.prepareCall(sql);
+            callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
-            if(status==false) callableStatement.setString(1, "0");
-            if(status==true) callableStatement.setString(1, "1");
+            if (status == false) callableStatement.setString(1, "0");
+            if (status == true) callableStatement.setString(1, "1");
             callableStatement.setString(2, Long.toString(id));
-        }catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

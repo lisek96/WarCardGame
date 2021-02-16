@@ -47,5 +47,6 @@
     <orderEntry type="library" name="Maven: org.jboss.weld.servlet:weld-servlet:2.2.14.Final" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.h2database:h2:1.4.197" level="project" />
     <orderEntry type="library" name="Maven: com.microsoft.sqlserver:mssql-jdbc:9.2.0.jre11" level="project" />
+    <orderEntry type="library" name="Maven: jstl:jstl:1.2" level="project" />
   </component>
 </module>

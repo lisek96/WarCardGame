@@ -7,7 +7,7 @@ form{
     border-width: 6px;
     width: 400px;
     height: 165px;
-    margin: 10% auto auto;
+    margin: 5% auto auto;
     background-color: darkolivegreen;
     font-size: 6px;
 }
@@ -15,6 +15,22 @@ form{
 form#registrationForm{
     display: none;
     height: 200px;
+}
+
+#succRegInfo{
+    margin: 5% auto auto;
+    width: 750px;
+    font-size: 28px;
+    color: limegreen;
+    text-decoration-style: solid;
+}
+
+#failRegInfo{
+    margin: 5% auto auto;
+    width: 375px;
+    font-size: 30px;
+    color: #ff3e3e;
+    text-decoration-style: solid;
 }
 
 .formElements{

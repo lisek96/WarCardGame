@@ -12,7 +12,7 @@ import java.util.Optional;
 public class test {
     public static void main(String[] args) {
         UserDAO userDAO = new SQL_Server_UserDAO();
-        Integer i = userDAO.getIDByLogin("xxxp");
+        Integer i = userDAO.getIDByLogin("xxx");
         System.out.println(i);
     }
 }
