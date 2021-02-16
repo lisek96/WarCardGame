@@ -28,16 +28,14 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         String loginAttemptInfo = userService.tryToAuthUserAndReturnInfo(login, password);
         SessionUser user;
-        if(loginAttemptInfo.equals("authed")) {
-            user  = userService.createUserForSessionAfterSuccessfulLogin(login);
+        if (loginAttemptInfo.equals("authed")) {
+            user = userService.createUserForSessionAfterSuccessfulLogin(login);
             request.getSession().setAttribute("user", user);
             request.getRequestDispatcher("welcome.jsp").forward(request, response);
-        }
-        else {
+        } else {
             request.setAttribute("loginAttemptInfo", loginAttemptInfo);
             request.getRequestDispatcher("/").forward(request, response);
         }
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
