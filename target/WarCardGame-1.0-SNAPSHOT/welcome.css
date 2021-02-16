@@ -1,0 +1,10 @@
+body{
+    background-color: black;
+}
+
+#welcome{
+    font-size: 46px;
+    color: limegreen;
+    margin: 10% auto auto;
+    width: 300px;
+}

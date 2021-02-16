@@ -25,7 +25,7 @@ form#registrationForm{
     text-decoration-style: solid;
 }
 
-#failRegInfo{
+.fail{
     margin: 5% auto auto;
     width: 375px;
     font-size: 30px;

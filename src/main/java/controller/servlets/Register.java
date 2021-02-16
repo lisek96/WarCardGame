@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Iterator;
 
 @WebServlet(name = "Register", urlPatterns = "/Register")
 public class Register extends HttpServlet {
@@ -16,6 +17,11 @@ public class Register extends HttpServlet {
     UserService userService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Iterator<String> xx = request.getAttributeNames().asIterator();
+        while (xx.hasNext()) {
+            request.setAttribute(xx.next(), null);
+        }
+
         String login = request.getParameter("login");
         String email = request.getParameter("email");
         String password = request.getParameter("password");

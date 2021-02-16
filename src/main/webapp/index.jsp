@@ -8,18 +8,19 @@
 </head>
 <body>
 <div id="succRegInfo"><c:out value="${requestScope.succRegistrationAttempt}"></c:out></div>
-<div id="failRegInfo"><c:out value="${requestScope.failRegistrationAttempt}"></c:out></div>
+<div class="fail"><c:out value="${requestScope.failRegistrationAttempt}"></c:out></div>
+<div class="fail"><c:out value="${requestScope.loginAttemptInfo}"></c:out></div>
 <form id="loginForm" action="Login" method="post">
-    <div><input class="formElements" type="text" name="login" value="Login"></div>
-    <div><input class="formElements" type="password" name="password" value="password"></div>
+    <div><input class="formElements" type="text" name="login" value="Login" required></div>
+    <div><input class="formElements" type="password" name="password" value="password" required></div>
     <div><input class="buttons" id="goButton" type="submit" value="Go!"></div>
     <div><button class="buttons" type="reset" id="NoAcc">No account?</button></div>
 </form>
 
 <form id="registrationForm" action="Register" method="post">
-    <div><input class="formElements" type="text" name="login" value="Login"></div>
-    <div><input class="formElements" type="password" name="password" value="password"></div>
-    <div><input class="formElements" type="text" name="email" value="email"></div>
+    <div><input class="formElements" type="text" name="login" value="Login" required></div>
+    <div><input class="formElements" type="password" name="password" value="password" required></div>
+    <div><input class="formElements" type="text" name="email" value="email" required></div>
     <div><input class="buttons" id="register" type="submit" value="Register!"></div>
     <div><button class="buttons" type="reset" id="goBack">Go back</button></div>
 </form>

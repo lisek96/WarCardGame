@@ -51,10 +51,7 @@ public class MD5PasswordEncoder implements PasswordEncoder {
             messageDigest.update(oldSalt);
         }
         byte[] output = messageDigest.digest(input);
-        System.out.println(Arrays.toString(output));
         String encryptedPassword = convertbyteToHexadecimal(output);
         return new String[]{encryptedPassword, salt};
     }
-
-
 }

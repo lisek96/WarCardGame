@@ -18,8 +18,8 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1, user.getLogin());
-            callableStatement.setString(2, user.getPassword());
-            callableStatement.setString(3, user.getSalt());
+            callableStatement.setString(2, user.getSalt());
+            callableStatement.setString(3, user.getPassword());
             callableStatement.setString(4, user.getEmail());
             callableStatement.execute();
         } catch (SQLException | ClassNotFoundException e) {
@@ -59,6 +59,25 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setString(1, email);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getInt(1);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getEmailByLogin(String login) {
+        CallableStatement callableStatement;
+        SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
+        try
+
+                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC getEmailByLogin ?";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setEscapeProcessing(true);
+            callableStatement.setString(1, login);
+            ResultSet resultSet = callableStatement.executeQuery();
+            if (resultSet.next()) return resultSet.getString(1);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -119,5 +138,26 @@ public class SQL_Server_UserDAO implements UserDAO {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean isUserActivated(String login) {
+        CallableStatement callableStatement;
+        SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC isUserActivated ?";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setEscapeProcessing(true);
+            callableStatement.setString(1, login);
+            ResultSet info = callableStatement.executeQuery();
+            info.next();
+            String isActivated = info.getString(1);
+            if (isActivated.equals("true")) return true;
+            else return false;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }
