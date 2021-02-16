@@ -1,5 +1,7 @@
 # WarCardGame
-Technologies: Tomcat 9.x, CDI 2.0, Maven, Java EE, Java 11, CSS, HTML, JavaScript, MSSQL Server, T-SQL, JDBC
+Technologies: Tomcat 9.x, CDI 2.0, Maven, Java EE, Java 11, CSS, HTML, JavaScript, T-SQL, JDBC, (JSP, JSTL, EL)
+
+Using remote SQL Server DB https://www.cloudclusters.io/
 
 
 
