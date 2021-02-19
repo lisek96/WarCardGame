@@ -4,7 +4,7 @@ package controller.filters;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
-@WebFilter(urlPatterns = "/welcome")
+@WebFilter()
 public class AuthFilter implements Filter {
 
     @Override

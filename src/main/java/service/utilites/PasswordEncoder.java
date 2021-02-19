@@ -1,8 +1,9 @@
 package service.utilites;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 
-public interface PasswordEncoder {
+public interface PasswordEncoder extends Serializable {
     byte[] provideSalt();
 
     byte[] convertHexadecimalStringToBytes(String s);

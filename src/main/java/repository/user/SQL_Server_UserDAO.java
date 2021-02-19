@@ -1,12 +1,17 @@
 package repository.user;
 
-import model.User;
+import model.user.User;
 import repository.SQL_Server_DBConnectionProvider;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.naming.InsufficientResourcesException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class SQL_Server_UserDAO implements UserDAO {
     @Override
@@ -123,18 +128,19 @@ public class SQL_Server_UserDAO implements UserDAO {
     }
 
     @Override
-    public void setActivated(boolean status, long id) {
+    public void setActivated(boolean status, int id) {
         CallableStatement callableStatement;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
-        try
-
-                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
-            String sql = "EXEC setActivated ? ?";
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC setActivated ?, ?";
             callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
-            if (status == false) callableStatement.setString(1, "0");
-            if (status == true) callableStatement.setString(1, "1");
-            callableStatement.setString(2, Long.toString(id));
+            if (status == true)
+                callableStatement.setString(1, "true");
+            else
+                callableStatement.setString(1, "false");
+            callableStatement.setInt(2, id);
+            callableStatement.execute();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -157,7 +163,6 @@ public class SQL_Server_UserDAO implements UserDAO {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 }

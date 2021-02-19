@@ -1,4 +1,4 @@
-package model;
+package model.user;
 
 public class SessionUser {
     private long id;

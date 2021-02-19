@@ -1,9 +1,7 @@
 package controller.servlets;
 
-import model.SessionUser;
-import model.User;
+import model.user.SessionUser;
 import service.user.UserService;
-import service.utilites.PasswordEncoder;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -39,6 +37,6 @@ public class Login extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("xx");
+        request.getRequestDispatcher("/").forward(request, response);
     }
 }

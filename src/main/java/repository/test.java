@@ -5,12 +5,19 @@ import repository.user.UserDAO;
 import service.utilites.MD5PasswordEncoder;
 import service.utilites.PasswordEncoder;
 
+import javax.ejb.Local;
+import javax.swing.text.DateFormatter;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class test {
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        MD5PasswordEncoder md5PasswordEncoder = new MD5PasswordEncoder();
-        String[] xx = md5PasswordEncoder.provideEncryptedPasswordAndSalt("qweqwe", "aa0f1010bae66809");
-        System.out.println(xx[0]);
+
+        LocalDate localDate = LocalDate.now().plusDays(7);
+        System.out.println(localDate);
     }
 }

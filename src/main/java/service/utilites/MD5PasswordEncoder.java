@@ -1,11 +1,12 @@
 package service.utilites;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Random;
-
 
 public class MD5PasswordEncoder implements PasswordEncoder {
     @Override

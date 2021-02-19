@@ -21,7 +21,6 @@ public class Register extends HttpServlet {
         while (xx.hasNext()) {
             request.setAttribute(xx.next(), null);
         }
-
         String login = request.getParameter("login");
         String email = request.getParameter("email");
         String password = request.getParameter("password");

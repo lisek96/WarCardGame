@@ -1,8 +1,10 @@
 package repository.activationLink;
 
-import model.ActivationLink;
+import model.activactionLink.ActivationLink;
 
-public interface ActivationLinkDAO {
+import java.io.Serializable;
+
+public interface ActivationLinkDAO extends Serializable {
     void create(ActivationLink activationLink);
     void deleteByToken(String token);
     Integer getIDUserByToken(String token);

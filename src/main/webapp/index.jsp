@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Main Page</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/index.css">
 </head>
 <body>
 <div id="succRegInfo"><c:out value="${requestScope.succRegistrationAttempt}"></c:out></div>
@@ -25,6 +25,6 @@
     <div><button class="buttons" type="reset" id="goBack">Go back</button></div>
 </form>
 <footer>WarCardGame</footer>
-<script src="index.js"></script>
+<script src="${pageContext.request.contextPath}/index.js"></script>
 </body>
 </html>

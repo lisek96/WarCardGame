@@ -1,8 +1,13 @@
 package service.activationLink;
 
-public interface ActivationLinkInterface {
+import model.user.User;
+
+import java.io.Serializable;
+
+public interface ActivationLinkInterface extends Serializable {
     String generateToken();
-    void send();
-    void create();
-    void delete();
+    void send(String toEmail, String token);
+    void createAndSend(User user);
+    String actOnCall(String token);
+    void delete(String token);
 }
