@@ -40,6 +40,8 @@ document.getElementById("goBack").onmouseout = goBack2;
 document.getElementById("goBack").onclick = goBack3;
 
 
-let xx = ${requestScope.loginAttemptInfo}
+function postForm(){
+    var data = new Object();
 
-console.log(xx);
+
+}

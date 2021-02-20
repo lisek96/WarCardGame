@@ -12,4 +12,14 @@ function addNewManufacturer() {
     });
 }
 
+function get(){
+    return $.get("/WarCardGame_war_exploded/ajax", function (data){
+        $('#xx').html(data);
+    }, "text");
+}
+
 document.getElementById("xx").addEventListener("click", addNewManufacturer);
+get();
+
+
+
