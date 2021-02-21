@@ -1,12 +1,8 @@
 package repository.user;
 
 import model.user.User;
-import repository.SQL_Server_DBConnectionProvider;
+import repository.connection.SQL_Server_DBConnectionProvider;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.naming.InsufficientResourcesException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
