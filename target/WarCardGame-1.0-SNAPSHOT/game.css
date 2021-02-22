@@ -1,0 +1,45 @@
+body{
+    background-color: green;
+}
+
+#container{
+
+}
+
+.playerUi{
+    margin-top: 5%;
+    height: 300px;
+    width: 173px;
+    font-size: 30px;
+    display: inline-block;
+}
+
+#p1Login{
+    margin: auto auto auto;
+}
+
+#player{
+    margin-left: 500px;
+}
+
+#p1CurrentCard, #p2CurrentCard{
+    margin-top: 20px;
+}
+
+#computer{
+    margin-left: 554px;
+}
+
+#playButton > button{
+    height: 100px;
+    width: 300px;
+    margin-left: 800px;
+    margin-top: 50px;
+    background-color: black;
+    color: green;
+    font-size: 30px;
+    border-color: limegreen;
+    border-width: 2px;
+    border-style: double;
+}
+
