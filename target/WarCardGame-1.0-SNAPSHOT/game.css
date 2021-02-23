@@ -6,16 +6,27 @@ body{
 
 }
 
-.playerUi{
-    margin-top: 5%;
-    height: 300px;
-    width: 173px;
-    font-size: 30px;
-    display: inline-block;
+.nickname{
+
 }
 
-#p1Login{
-    margin: auto auto auto;
+#warCards{
+    display: block;
+    margin-top: 50px;
+    margin-left: 600px;
+    width: 400px;
+    height: 400px;
+}
+
+.playerUi{
+    margin: 5% auto auto;
+    height: 300px;
+    width: 173px;
+    font-size: 25px;
+    display: inline-block;
+    font-style: normal;
+    align-content: center;
+    color: lawngreen;
 }
 
 #player{
@@ -30,7 +41,7 @@ body{
     margin-left: 554px;
 }
 
-#playButton > button{
+#playButtonDiv > button{
     height: 100px;
     width: 300px;
     margin-left: 800px;
