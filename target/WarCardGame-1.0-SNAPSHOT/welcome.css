@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background-color: darkgreen;
 }
 
 #welcome{
@@ -7,4 +7,41 @@ body{
     color: limegreen;
     margin: 10% auto auto;
     width: 300px;
+}
+
+#play{
+    margin-left: 170px;
+}
+
+#gameAmount{
+    margin-left: 170px;
+}
+
+.info{
+    margin-left: 5px;
+    margin-top: 5px;
+    background-color: black;
+    color: limegreen;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 3px;
+    width: 290px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.buttons{
+    margin-left: 5px;
+    display: inline-block;
+    width: 300px;
+    height: 150px;
+    margin-top: 100px;
+    font-size: 40px;
+    color: limegreen;
+    background-color: black;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 3px;
 }

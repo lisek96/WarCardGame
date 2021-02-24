@@ -192,5 +192,5 @@ function reloadCurrentCards() {
 }
 
 function xx() {
-    window.location.href = "http://www.gazeta.pl";
+    window.location.href = "http://localhost:8080/WarCardGame_war_exploded/welcome.jsp";
 }

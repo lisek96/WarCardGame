@@ -10,11 +10,19 @@ body{
 
 }
 
+#stake{
+    margin-top: 50px;
+    font-size: 30px;
+    color: black;
+
+    margin-left: 600px;
+}
+
 #warCards{
     display: block;
     margin-top: 50px;
     margin-left: 600px;
-    width: 400px;
+    width: 800px;
     height: 400px;
 }
 

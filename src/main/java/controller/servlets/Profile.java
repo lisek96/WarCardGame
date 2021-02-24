@@ -16,5 +16,6 @@ public class Profile extends HttpServlet {
     }
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getPathInfo().substring(1);
+
     }
 }

@@ -15,6 +15,7 @@
     <div><img id="p2CurrentCard" src="image/JC.jpg" alt="defaultMessage"/></div>
 </div>
 <div id="playButtonDiv"><button id="playButton">play</button></div>
+<div id="stake">Stake of the ongoing war</div>
 <div id="warCards"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/ajax.js"></script>

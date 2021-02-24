@@ -7,6 +7,9 @@ public class User {
     private String password;
     private String email;
     private boolean activated;
+    int wins;
+    int loses;
+    String avatarPath;
 
     public User(String login, String salt, String password, String email) {
         this.login = login;
