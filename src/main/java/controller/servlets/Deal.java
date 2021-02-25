@@ -2,6 +2,7 @@ package controller.servlets;
 
 import model.user.SessionUser;
 import model.user.User;
+import service.game.GameServiceInterface;
 import service.utilites.DealerInterface;
 
 import javax.enterprise.context.SessionScoped;
@@ -15,13 +16,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Optional;
+
 
 
 @WebServlet(name = "Dealer", urlPatterns = "/deal")
 public class Deal extends HttpServlet {
     @Inject
     DealerInterface dealerInterface;
+    @Inject
+    GameServiceInterface gameServiceInterface;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BufferedReader br =
                 new BufferedReader(new InputStreamReader(request.getInputStream()));

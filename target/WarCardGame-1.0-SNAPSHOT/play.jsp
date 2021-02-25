@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>$Title$</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/game.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/play.css">
 </head>
 <body>
 <div id="player" class="playerUi">
@@ -18,6 +18,6 @@
 <div id="stake">Stake of the ongoing war</div>
 <div id="warCards"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/ajax.js"></script>
+<script src="${pageContext.request.contextPath}/play.js"></script>
 </body>
 </html>

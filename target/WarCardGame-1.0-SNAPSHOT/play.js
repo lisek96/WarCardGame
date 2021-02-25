@@ -1,5 +1,7 @@
 // test dla wojny jak jest mniej niz 3 karty, np rzucamy 1, jest remis wiec co robimy albo rzucimy 1 rzucimy 2 musimy rzucic 3 to ta 2 musi sie odwrocic
+window.addEventListener('beforeunload', function (e) {
 
+});
 
 function Player(name, cards, amountOfCards, currentCardIndex) {
     this.name = name;
@@ -8,13 +10,20 @@ function Player(name, cards, amountOfCards, currentCardIndex) {
     this.currentCardIndex = currentCardIndex;
 }
 
-
 function Card(value, symbol, jpg, jpgSmall) {
     this.value = value;
     this.symbol = symbol;
     this.jpg = jpg;
     this.jpgSmall = jpgSmall;
 }
+
+let cardsNumber = 26;
+let matchId = 0;
+let winner = "";
+let warCards = new Array();
+let cards = spawnCards();
+let player = new Player("", new Array(), 26, 25);
+let computer = new Player("Computer", new Array(), 26, 25);
 
 function spawnCards() {
     let cards = new Array();
@@ -29,25 +38,25 @@ function spawnCards() {
     return cards;
 }
 
-function setAmountOfStartingCards(amount) {
-    let popCount = 25 - amount;
-    for (let i = 0; i < popCount; i++) {
-        player.cards.pop();
-        computer.cards.pop();
-    }
-    player.currentCardIndex -= popCount;
-    computer.currentCardIndex -= popCount;
-
+function matchCardsNumber() {
+    let cardsNumber = window.location.search;
+    let cardsNumberKeyValue = cardsNumber.split("=");
+    cardsNumber = cardsNumberKeyValue[1];
+    let howManyToPop = 26 - cardsNumber;
+    popCards(howManyToPop);
 }
 
-let warCards = new Array();
-let cards = spawnCards();
-let player = new Player("", new Array(), 26, 25);
-let computer = new Player("Computer", new Array(), 26, 25);
-
+function popCards(howMany) {
+    for (let i = 0; i < howMany; i++) {
+        player.cards.pop();
+        computer.cards.pop();
+        player.currentCardIndex--;
+        computer.currentCardIndex--;
+    }
+}
 
 function showWarCards() {
-    for (let i = warCards.length-4; i < warCards.length; i++) {
+    for (let i = warCards.length - 4; i < warCards.length; i++) {
         const newImg = document.createElement("img");
         newImg.src = warCards[i].jpgSmall;
         newImg.style.marginLeft = "5px";
@@ -63,52 +72,32 @@ function deleteWarCards() {
     }
 }
 
-function postMethodExample() {
-    var sendInfo = "witam";
-
-
-    console.log("xx");
-
-    $.ajax({
-        type: "POST",
-        url: "/WarCardGame_war_exploded/deal",
-        dataType: "text",
-        data: sendInfo
-    });
+function pushWarCardsToWinner(winner) {
+    warCards.forEach(function (item, index, array) {
+        winner.cards.unshift(item);
+    })
 }
 
-function callback(response) {
-    let orderLogin = `__`;
-    orderLogin = response;
+function getGameData() {
+    $.get("/WarCardGame_war_exploded/deal", function (data) {
+        callback(data)
+    }, "text")
+        .fail(function () {
+            alert("error");
+        })
+};
+
+function callback(gameData) {
     let orderAndLogin = orderLogin.split("\r\n");
     let login = orderAndLogin[1];
     let orderString = orderAndLogin[0];
     let orderArray = orderString.split(" ");
     player.name = login;
     dealCards(orderArray);
-    console.log(cards);
-    player.cards[25]=cards[1];
-    computer.cards[25]=cards[1];
-    player.cards[23]=cards[1];
-    computer.cards[23]=cards[1];
+    matchCardsNumber();
     prepareUIs();
+    console.log(player.cards);
 }
-
-function getShuffled() {
-    $.get("/WarCardGame_war_exploded/deal", function (data) {
-        callback(data)
-    }, "text")
-        .done(function (data) {
-        })
-        .fail(function () {
-            alert("error");
-        })
-        .always(function () {
-        });
-};
-
-
-getShuffled();
 
 function dealCards(order) {
     for (let i = 0; i < order.length - 1; i++) {
@@ -118,14 +107,13 @@ function dealCards(order) {
 }
 
 function prepareUIs() {
-    console.log(player.cards);
-    console.log(computer.cards);
     $("#p1Login").text(player.name);
-    console.log(player.cards[player.currentCardIndex].jpg)
     $("#p1CurrentCard").attr("src", player.cards[player.currentCardIndex].jpg);
     $("#p2CurrentCard").attr("src", computer.cards[computer.currentCardIndex].jpg);
     $("#playButton").click(play);
 }
+
+getGameData();
 
 function play() {
     let playerCard = player.cards.pop();
@@ -145,15 +133,8 @@ function play() {
         let computerHostage = computer.cards.pop();
         player.currentCardIndex -= 2;
         computer.currentCardIndex -= 2;
-        console.log(player.cards[player.currentCardIndex]);
-        console.log(computer.cards[computer.currentCardIndex]);
-        console.log(player.cards);
-        console.log(computer.cards);
-        console.log(player.currentCardIndex);
-        console.log(computer.currentCardIndex);
         warCards.push(playerHostage, computerHostage);
         warCards.push(playerCard, computerCard);
-        reloadCurrentCards();
         showWarCards();
     } else {
         let winner = playerCard.value > computerCard.value ? player : computer;
@@ -173,24 +154,33 @@ function play() {
             pushWarCardsToWinner(winner);
             deleteWarCards()
         }
-        reloadCurrentCards();
     }
-
+    reloadCurrentCards();
 }
-
-
-function pushWarCardsToWinner(winner) {
-    warCards.forEach(function (item, index, array) {
-        winner.cards.unshift(item);
-    })
-}
-
 
 function reloadCurrentCards() {
-    $("#p1CurrentCard").attr("src", player.cards[player.currentCardIndex].jpg + "");
-    $("#p2CurrentCard").attr("src", computer.cards[computer.currentCardIndex].jpg + "");
+    if (checkIfGameIsOverAndAct()) return;
+    else {
+        $("#p1CurrentCard").attr("src", player.cards[player.currentCardIndex].jpg + "");
+        $("#p2CurrentCard").attr("src", computer.cards[computer.currentCardIndex].jpg + "");
+    }
 }
 
-function xx() {
-    window.location.href = "http://localhost:8080/WarCardGame_war_exploded/welcome.jsp";
+function checkIfGameIsOverAndAct() {
+    if(player.currentCardIndex<0)
+    {
+        actWhenGameIsOver(computer)
+        return true;
+    }
+    else if(computer.currentCardIndex<0)
+    {
+        actWhenGameIsOver(player);
+        return true;
+    }
+    return false;
 }
+
+function actWhenGameIsOver(winner) {
+
+}
+

@@ -13,7 +13,7 @@
 <button id="editProfile" class="buttons">Edit profile</button>
 <button id="checkRanking" class="buttons">Check rankings</button>
 <button id="myProfile" class="buttons">My profile</button>
-<input class="info" id = "gameAmount" type="text" value="How many cards per player?"/>
+<input class="info" id = "cardsNumber" type="text" value="How many cards per player?"/>
 <input class="info" id = "playerLogin" type="text" value="Pass player login"/>
 <input class="info" id = "saveChanges" type="text" value="Save changes"/>
 <input class="info" id = "range" type="text" value="Range from 1 to ? (your input)"/>
