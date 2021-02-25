@@ -1,0 +1,74 @@
+CREATE TABLE User_ (IdUser INT IDENTITY(1,10) PRIMARY KEY, login varchar(255), password varchar(255), salt varchar(255), email varchar(255), isActivated BIT);
+
+CREATE PROCEDURE createNewUser
+@login varchar(255), @password varchar(255), @salt varchar(255), @email varchar(255)
+AS
+BEGIN
+	INSERT INTO User_ VALUES (@login, @salt, @password, @email, 0, 0, 0, null);
+END;
+
+ALTER PROCEDURE getIDByLogin
+@login varchar(255)
+AS
+BEGIN
+	SELECT idUser FROM User_ WHERE login = @login;
+END;
+
+CREATE PROCEDURE getIDByEmail
+@email varchar(255)
+AS
+BEGIN
+	SELECT idUser FROM User_ WHERE login = @email
+END;
+
+CREATE PROCEDURE getPasswordByLogin
+@login varchar(255)
+AS
+BEGIN
+	SELECT password FROM User_ WHERE login = @login
+END;
+
+CREATE PROCEDURE getPasswordByLogin
+@login varchar(255)
+AS
+BEGIN
+	SELECT password FROM User_ WHERE login = @login
+END;
+
+CREATE PROCEDURE setActivated
+@status BIT, @idUser INT
+AS
+BEGIN
+	UPDATE USER_ SET isActivated = @status WHERE idUser = @idUser
+END;
+
+ALTER PROCEDURE isUserActivated
+@login varchar(255)
+AS
+BEGIN
+	DECLARE @isActivated BIT;
+	SET @isActivated = (SELECT isActivated FROM User_ WHERE login = @login);
+	IF @isActivated = 0
+		BEGIN
+		SELECT 'false';
+		END;
+	ELSE
+		SELECT 'true';
+END;
+
+CREATE PROCEDURE deleteActivationLinkByToken
+@token varchar(255)
+AS
+BEGIN
+	DELETE FROM ActivationLink WHERE token = @token;
+END;
+
+CREATE PROCEDURE getIDUserByToken
+@token varchar(255)
+AS
+BEGIN
+	SELECT idUser FROM ActivationLink WHERE token = @token;
+END;
+
+
+
