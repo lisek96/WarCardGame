@@ -26,6 +26,10 @@ body{
     height: 400px;
 }
 
+#gameInfo{
+    display: inline-block;
+}
+
 .playerUi{
     margin: 5% auto auto;
     height: 300px;

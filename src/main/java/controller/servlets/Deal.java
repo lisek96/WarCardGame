@@ -1,11 +1,9 @@
 package controller.servlets;
 
 import model.user.SessionUser;
-import model.user.User;
-import service.game.GameServiceInterface;
+import service.game.GameService;
 import service.utilites.DealerInterface;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +22,7 @@ public class Deal extends HttpServlet {
     @Inject
     DealerInterface dealerInterface;
     @Inject
-    GameServiceInterface gameServiceInterface;
+    GameService gameServiceInterface;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BufferedReader br =
@@ -37,12 +35,15 @@ public class Deal extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionUser user = (SessionUser) request.getSession().getAttribute("user");
+        int gameID = gameServiceInterface.createNewGameAndReturnID((int) user.getId());
+        System.out.println(gameID);
         String login = user != null ? user.getLogin() : "default login";
         PrintWriter printWriter = response.getWriter();
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         printWriter.write(dealerInterface.dealCards()+"\r\n");
-        printWriter.write(login);
+        printWriter.write(login + "\r\n");
+        printWriter.write(Integer.toString(gameServiceInterface.encryptGameID(gameID)));
         printWriter.flush();
     }
 }

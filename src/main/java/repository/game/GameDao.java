@@ -1,6 +1,6 @@
 package repository.game;
 
 public interface GameDao {
-    void create();
-    void setResultByGameID();
+    int create(int idUser);
+    void setResultByGameID(int idGame, String result);
 }

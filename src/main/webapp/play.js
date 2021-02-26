@@ -18,8 +18,7 @@ function Card(value, symbol, jpg, jpgSmall) {
 }
 
 let cardsNumber = 26;
-let matchId = 0;
-let winner = "";
+let gameId = 0;
 let warCards = new Array();
 let cards = spawnCards();
 let player = new Player("", new Array(), 26, 25);
@@ -88,9 +87,11 @@ function getGameData() {
 };
 
 function callback(gameData) {
-    let orderAndLogin = orderLogin.split("\r\n");
-    let login = orderAndLogin[1];
-    let orderString = orderAndLogin[0];
+    let gameDateArray = gameData.split("\r\n");
+    let login = gameDateArray [1];
+    let orderString = gameDateArray[0];
+    gameId = gameDateArray[2];
+    console.log(gameDateArray);
     let orderArray = orderString.split(" ");
     player.name = login;
     dealCards(orderArray);
@@ -118,14 +119,6 @@ getGameData();
 function play() {
     let playerCard = player.cards.pop();
     let computerCard = computer.cards.pop();
-    if (playerCard === undefined) {
-        console.log("playerCardEnd");
-        return;
-    }
-    if (computerCard === undefined) {
-        console.log("computerCardEnd");
-        return;
-    }
 
     if (playerCard.value === computerCard.value) {
         console.log("REMIS");
@@ -159,7 +152,11 @@ function play() {
 }
 
 function reloadCurrentCards() {
-    if (checkIfGameIsOverAndAct()) return;
+    if (checkIfGameIsOverAndAct())
+    {
+        $("#p1CurrentCard").attr("src", "image/default.jpg" + "");
+        $("#p2CurrentCard").attr("src", "image/default.jpg" + "");
+    }
     else {
         $("#p1CurrentCard").attr("src", player.cards[player.currentCardIndex].jpg + "");
         $("#p2CurrentCard").attr("src", computer.cards[computer.currentCardIndex].jpg + "");
@@ -169,18 +166,28 @@ function reloadCurrentCards() {
 function checkIfGameIsOverAndAct() {
     if(player.currentCardIndex<0)
     {
-        actWhenGameIsOver(computer)
+        sendResult(computer);
+        deactivatePlayButton();
         return true;
     }
     else if(computer.currentCardIndex<0)
     {
-        actWhenGameIsOver(player);
+        sendResult(player);
+        deactivatePlayButton();
         return true;
     }
     return false;
 }
 
-function actWhenGameIsOver(winner) {
+function sendResult(winner) {
+    let result = new Object();
+    result.winner = winner.name;
+    result.gameId = gameId;
+    let resultJSON = JSON.stringify(result);
+    $.post("/WarCardGame_war_exploded/result", resultJSON);
+}
 
+function deactivatePlayButton(){
+    $("#playButton").click(null).text('Game Over');
 }
 

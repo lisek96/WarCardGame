@@ -1,20 +1,34 @@
 package service.game;
 
+import model.game.Result;
 import repository.game.GameDao;
 
 import javax.inject.Inject;
 
-public class GameServiceImplementation implements GameServiceInterface{
+public class GameServiceImplementation implements GameService {
+
     @Inject
     GameDao gameDao;
 
     @Override
-    public int setResultByGameID(int idGame) {
-        return 0;
+    public void setGameResult(Result gameResult) {
+        int idGame = gameResult.getGameId();
+        String result = gameResult.getWinner();
+        gameDao.setResultByGameID(idGame, result);
     }
 
     @Override
     public int createNewGameAndReturnID(int idUser) {
-        return 0;
+        return gameDao.create(idUser);
+    }
+
+    @Override
+    public int encryptGameID(int gameID) {
+        return (gameID +41) * 3 * 7 * 11 * 27;
+    }
+
+    @Override
+    public int decryptGameID(int gameID) {
+        return gameID / 27 / 11 / 7 / 3 - 41;
     }
 }

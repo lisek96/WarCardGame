@@ -10,6 +10,7 @@
     <div id="p1Login">defaultLogin</div>
     <div><img id="p1CurrentCard" src="image/default.jpg" alt="defaultMessage"/></div>
 </div>
+<div id="gameInfo"></DIV>
 <div id="computer" class="playerUi">
     <div id="computerNickname">Computer</div>
     <div><img id="p2CurrentCard" src="image/JC.jpg" alt="defaultMessage"/></div>
