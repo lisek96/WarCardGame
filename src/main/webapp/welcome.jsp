@@ -18,6 +18,7 @@
 <input class="info" id = "saveChanges" type="text" value="Save changes"/>
 <input class="info" id = "range" type="text" value="Range from 1 to ? (your input)"/>
 <input class="info" type="text" disabled/>
+<div id="editProfileForm"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/welcome.js"></script>
 </body>

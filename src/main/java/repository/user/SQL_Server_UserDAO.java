@@ -1,15 +1,13 @@
 package repository.user;
 
-import model.game.Result;
+import model.user.Stats;
 import model.user.User;
 import repository.connection.SQL_Server_DBConnectionProvider;
-import repository.utilities.Helper;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -167,7 +165,7 @@ public class SQL_Server_UserDAO implements UserDAO {
     }
 
     @Override
-    public List<Integer> getWinsAndLoses(int userId) {
+    public int[] getWinsAndLoses(int userId) {
         CallableStatement callableStatement;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
@@ -176,7 +174,8 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setEscapeProcessing(true);
             callableStatement.setInt(1, userId);
             ResultSet rs = callableStatement.executeQuery();
-            return Helper.getAllColumnsFromResultSetIntoIntList(rs);
+            rs.next();
+            return new int[]{rs.getInt(1), rs.getInt(2)};
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -186,8 +185,7 @@ public class SQL_Server_UserDAO implements UserDAO {
     }
 
     @Override
-    public void incrementWins(int idUser){
-        System.out.println("incremeting");
+    public void incrementWins(int idUser) {
         CallableStatement callableStatement;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
@@ -203,7 +201,6 @@ public class SQL_Server_UserDAO implements UserDAO {
 
     @Override
     public void incrementLoses(int idUser) {
-        System.out.println("incremeting");
         CallableStatement callableStatement;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
@@ -215,6 +212,22 @@ public class SQL_Server_UserDAO implements UserDAO {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ResultSet getLoginWinsLosesOfUsers(int howMany) {
+        CallableStatement callableStatement;
+        SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC getLoginWinsLosesOfUsers ?";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setEscapeProcessing(true);
+            callableStatement.setInt(1, howMany);
+            ResultSet rs = callableStatement.executeQuery();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
