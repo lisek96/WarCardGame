@@ -1,21 +1,21 @@
 package model.user;
 
 public class SessionUser {
-    private long id;
+    private int id;
     private String login;
     private String email;
 
-    public SessionUser(long id, String login, String email) {
+    public SessionUser(int id, String login, String email) {
         this.id = id;
         this.login = login;
         this.email = email;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

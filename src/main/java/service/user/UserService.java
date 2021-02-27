@@ -1,18 +1,15 @@
 package service.user;
 
-import model.activactionLink.ActivationLink;
 import model.user.SessionUser;
+import model.user.Stats;
 import model.user.User;
 import repository.user.UserDAO;
 import service.activationLink.ActivationLinkInterface;
-import service.activationLink.ActivationLinkService;
 import service.utilites.PasswordEncoder;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class UserService implements UserServiceInterface {
     @Inject
@@ -66,6 +63,46 @@ public class UserService implements UserServiceInterface {
         SessionUser sessionUser = new SessionUser(id, login, email);
         return sessionUser;
     }
+
+
+    @Override
+    public int getRanking(int idUser) {
+        List<Integer> winsAndLoses = userDAO.getWinsAndLoses(idUser);
+        int wins=winsAndLoses.get(0), loses=winsAndLoses.get(1);
+        return evaluateRanking(wins, loses);
+    }
+
+    @Override
+    public Stats getStats(int idUser) {
+        List<Integer> winsAndLoses = userDAO.getWinsAndLoses(idUser);
+        int wins=winsAndLoses.get(0), loses=winsAndLoses.get(1);
+        int ranking=evaluateRanking(wins, loses), matches = evaluateNumberOfMatches(wins, loses);
+        double winPercentage = evaluateWinPercentage(wins, loses);
+        return new Stats(wins, loses, matches, winPercentage, ranking);
+    }
+
+    @Override
+    public void incrementWins(int idUser) {
+        userDAO.incrementWins(idUser);
+    }
+
+    @Override
+    public void incrementLoses(int idUser) {
+        userDAO.incrementLoses(idUser);
+    }
+
+    private int evaluateRanking(int wins, int loses){
+        return 1500+((wins-loses)*25);
+    }
+
+    private double evaluateWinPercentage(int wins, int loses){
+        return wins/(wins+loses);
+    }
+
+    private int evaluateNumberOfMatches(int wins ,int loses){
+        return wins+loses;
+    }
+
 
     private boolean validateUserPassword(String hashedPassword, String salt, String inputPassword) {
         try {

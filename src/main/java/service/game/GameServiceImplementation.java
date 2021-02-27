@@ -4,6 +4,7 @@ import model.game.Result;
 import repository.game.GameDao;
 
 import javax.inject.Inject;
+import java.sql.SQLException;
 
 public class GameServiceImplementation implements GameService {
 
@@ -11,8 +12,8 @@ public class GameServiceImplementation implements GameService {
     GameDao gameDao;
 
     @Override
-    public void setGameResult(Result gameResult) {
-        int idGame = gameResult.getGameId();
+    public void setGameResult(Result gameResult) throws SQLException {
+        int idGame = decryptGameID(gameResult.getGameId());
         String result = gameResult.getWinner();
         gameDao.setResultByGameID(idGame, result);
     }

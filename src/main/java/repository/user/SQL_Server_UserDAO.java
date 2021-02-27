@@ -1,12 +1,16 @@
 package repository.user;
 
+import model.game.Result;
 import model.user.User;
 import repository.connection.SQL_Server_DBConnectionProvider;
+import repository.utilities.Helper;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SQL_Server_UserDAO implements UserDAO {
@@ -161,4 +165,56 @@ public class SQL_Server_UserDAO implements UserDAO {
         }
         return false;
     }
+
+    @Override
+    public List<Integer> getWinsAndLoses(int userId) {
+        CallableStatement callableStatement;
+        SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC getWinsAndLoses ?";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setEscapeProcessing(true);
+            callableStatement.setInt(1, userId);
+            ResultSet rs = callableStatement.executeQuery();
+            return Helper.getAllColumnsFromResultSetIntoIntList(rs);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public void incrementWins(int idUser){
+        System.out.println("incremeting");
+        CallableStatement callableStatement;
+        SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC incrementWins ?";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setEscapeProcessing(true);
+            callableStatement.setInt(1, idUser);
+            callableStatement.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void incrementLoses(int idUser) {
+        System.out.println("incremeting");
+        CallableStatement callableStatement;
+        SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC incrementLoses ?";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setEscapeProcessing(true);
+            callableStatement.setInt(1, idUser);
+            callableStatement.execute();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

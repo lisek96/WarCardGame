@@ -4,6 +4,7 @@ import model.user.User;
 
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
 
 public interface UserDAO extends Serializable {
     void create(User user);
@@ -14,4 +15,7 @@ public interface UserDAO extends Serializable {
     String getSaltByLogin(String login);
     void setActivated(boolean status,int id);
     boolean isUserActivated(String login);
+    List<Integer> getWinsAndLoses(int UserId);
+    void incrementWins(int idUser);
+    void incrementLoses(int idUser);
 }

@@ -28,7 +28,7 @@ public class SQL_Server_GameDAO implements GameDao {
     }
 
     @Override
-    public void setResultByGameID(int idGame, String result) {
+    public void setResultByGameID(int idGame, String result) throws SQLException{
         CallableStatement callableStatement;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
@@ -36,9 +36,9 @@ public class SQL_Server_GameDAO implements GameDao {
             callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setInt(1, idGame);
-            callableStatement.setString(1, result);
+            callableStatement.setString(2, result);
             callableStatement.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
