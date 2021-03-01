@@ -1,7 +1,7 @@
 package repository.user;
 
-import model.user.Stats;
 import model.user.User;
+import repository.utils.Helper;
 import repository.connection.SQL_Server_DBConnectionProvider;
 
 import java.sql.CallableStatement;
@@ -62,6 +62,25 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setString(1, email);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getInt(1);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String[] getIdAndEmailByLogin(String login) {
+        CallableStatement callableStatement;
+        SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+            String sql = "EXEC getIdAndEmailByLogin ?";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setEscapeProcessing(true);
+            callableStatement.setString(1, login);
+            ResultSet rs = callableStatement.executeQuery();
+            rs.next();
+            return new String[]{rs.getString(1), rs.getString(2)};
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -215,7 +234,7 @@ public class SQL_Server_UserDAO implements UserDAO {
     }
 
     @Override
-    public ResultSet getLoginWinsLosesOfUsers(int howMany) {
+    public List<List<String>> getLoginWinsLosesOfUsers(int howMany) {
         CallableStatement callableStatement;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
         try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
@@ -224,6 +243,8 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setEscapeProcessing(true);
             callableStatement.setInt(1, howMany);
             ResultSet rs = callableStatement.executeQuery();
+            List<List<String>> listOfRows = Helper.getAllRowsFromResultSetIntoStringList(rs, 3);
+            return listOfRows;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

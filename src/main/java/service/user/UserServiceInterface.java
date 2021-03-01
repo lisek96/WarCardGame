@@ -14,10 +14,16 @@ public interface UserServiceInterface extends Serializable {
     void registerUser(String login, String password, String email) throws NoSuchAlgorithmException;
     String tryToAuthUserAndReturnInfo(String login, String password);
     SessionUser createUserForSessionAfterSuccessfulLogin(String login);
+    String getEmailByLogin(String login);
     int getRanking(int UserId);
     Stats getStats(int idUser);
     Stats getStats(int wins, int loses);
     void incrementWins(int idUser);
     void incrementLoses(int idUser);
     List<Stats> createRanking(int topUsers) throws SQLException, NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+    void changePassword(int idUser);
+    void changeEmail(int idUser);
+    void changeLogin(int idUser);
+    void changeAvatarPath(int idUser);
+    String[] getIdAndEmailByLogin(String login);
 }

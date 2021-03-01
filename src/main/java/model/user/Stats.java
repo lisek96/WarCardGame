@@ -2,6 +2,7 @@ package model.user;
 
 public class Stats {
     String login;
+    String email;
     int wins;
     int loses;
     int matches;
@@ -31,6 +32,10 @@ public class Stats {
 
     public String getLogin() {
         return login;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getWins() {

@@ -12,6 +12,7 @@ public interface UserDAO extends Serializable {
     void create(User user);
     Integer getIDByLogin(String login);
     Integer getIDByEmail(String email);
+    String[] getIdAndEmailByLogin(String login);
     String getEmailByLogin(String login);
     String getPasswordByLogin(String login);
     String getSaltByLogin(String login);
@@ -20,5 +21,5 @@ public interface UserDAO extends Serializable {
     int[] getWinsAndLoses(int UserId);
     void incrementWins(int idUser);
     void incrementLoses(int idUser);
-    ResultSet getLoginWinsLosesOfUsers(int howMany);
+    List<List<String>> getLoginWinsLosesOfUsers(int howMany);
 }

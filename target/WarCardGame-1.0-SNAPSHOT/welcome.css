@@ -5,7 +5,7 @@ body{
 #welcome{
     font-size: 46px;
     color: limegreen;
-    margin: 10% auto auto;
+    margin: 5% auto auto;
     width: 300px;
 }
 
@@ -44,4 +44,37 @@ body{
     border-color: limegreen;
     border-style: solid;
     border-width: 3px;
+}
+
+
+
+#MyProfileSection > div{
+    margin-top: 50px;
+    display: inline-block;
+    vertical-align: top;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 3px;
+}
+
+#avatarDiv{
+    height: 300px;
+    width: 300px;
+    margin-left: 600px;
+}
+
+#figures{
+    height: 300px;
+    width: 300px;
+    background-color: black;
+    color: limegreen;
+    font-size: 18px;
+    width: 300px;
+    margin-left: 20px;
+}
+
+#stats{
+}
+#figures>p {
+    margin-left: 5px;
 }

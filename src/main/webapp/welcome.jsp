@@ -15,10 +15,23 @@
 <button id="myProfile" class="buttons">My profile</button>
 <input class="info" id = "cardsNumber" type="text" value="How many cards per player?"/>
 <input class="info" id = "playerLogin" type="text" value="Pass player login"/>
-<input class="info" id = "saveChanges" type="text" value="Save changes"/>
+<input class="info" id = "saveChanges" type="text" value=""/>
 <input class="info" id = "range" type="text" value="Range from 1 to ? (your input)"/>
 <input class="info" type="text" disabled/>
-<div id="editProfileForm"></div>
+<div id="MyProfileSection">
+    <div id="avatarDiv">
+        <img width="300px" height="300px" src="avatars/rafal.jpg" id="avatar">
+    </div>
+    <div id="figures">
+        <p id="login">Login:</p>
+        <p id="email">Email:</p>
+        <p id="ranking">Ranking:</p>
+        <p id="matches">Matches:</p>
+        <p id="wins">Wins:</p>
+        <p id="loses">Loses:</p>
+        <p id="winPercentage">Win percentage:</p>
+    </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/welcome.js"></script>
 </body>

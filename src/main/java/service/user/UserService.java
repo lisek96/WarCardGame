@@ -5,7 +5,6 @@ import model.user.Stats;
 import model.user.User;
 import repository.user.UserDAO;
 import service.activationLink.ActivationLinkInterface;
-import service.utilites.Helper;
 import service.utilites.PasswordEncoder;
 import service.utilites.ThrowingComparator;
 
@@ -13,7 +12,6 @@ import javax.inject.Inject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,6 +70,10 @@ public class UserService implements UserServiceInterface {
         return sessionUser;
     }
 
+    @Override
+    public String getEmailByLogin(String login) {
+        return userDAO.getEmailByLogin(login);
+    }
 
     @Override
     public int getRanking(int idUser) {
@@ -107,26 +109,47 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public List<Stats> createRanking(int topUsers) throws SQLException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        ResultSet rs = userDAO.getLoginWinsLosesOfUsers(topUsers);
-        List<List<String>> listOfRows = Helper.getAllRowsFromResultSetIntoStringList(rs, 3);
+        List<List<String>> listOfRows = userDAO.getLoginWinsLosesOfUsers(topUsers);
         List<Stats> listOfStats = loginWinsLosesToStats(listOfRows);
         List<Stats> sortedListByRanking = sortListOfStatsByStatsAttribute("Ranking", listOfStats);
+        return sortedListByRanking;
+    }
 
+    @Override
+    public void changePassword(int idUser) {
 
-        return null;
+    }
+
+    @Override
+    public void changeEmail(int idUser) {
+
+    }
+
+    @Override
+    public void changeLogin(int idUser) {
+
+    }
+
+    @Override
+    public void changeAvatarPath(int idUser) {
+
+    }
+
+    @Override
+    public String[] getIdAndEmailByLogin(String login) {
+        return userDAO.getIdAndEmailByLogin(login);
     }
 
     public List<Stats> sortListOfStatsByStatsAttribute(String statsArg, List<Stats> listOfStats) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method m = Stats.class.getMethod("get"+statsArg);
         List<Stats> listOfStatsDuplicate = new ArrayList<>(listOfStats);
-        Collections.sort(listOfStatsDuplicate, (ThrowingComparator<Stats>) (s1, s2) -> (int) m.invoke(s2) - (int) m.invoke(s1));
+        Collections.sort(listOfStatsDuplicate, (ThrowingComparator<Stats>) (s1, s2) -> (int) ((double) m.invoke(s2) - (double) m.invoke(s1)));
         return listOfStatsDuplicate;
     }
 
 
     private List<Stats> loginWinsLosesToStats(List<List<String>> list){
         List<Stats> statsList = new ArrayList<>();
-
         for(List<String> innerList : list){
             Stats stats = getStats(Integer.parseInt(innerList.get(1)), Integer.parseInt(innerList.get(2)));
             stats.setLogin(innerList.get(0));
@@ -141,7 +164,8 @@ public class UserService implements UserServiceInterface {
     }
 
     private double evaluateWinPercentage(int wins, int loses){
-        return wins/(wins+loses);
+        if((wins+loses)==0) return 0;
+        return wins*100/(wins+loses);
     }
 
     private int evaluateNumberOfMatches(int wins ,int loses){
