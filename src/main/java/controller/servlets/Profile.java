@@ -27,9 +27,7 @@ public class Profile extends HttpServlet {
     }
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getPathInfo().substring(1);
-        Stats stats = null;
-        String email;
-        int idUser;
+        Stats stats; String email; int idUser;
         if(login.equals("")) {
             System.out.println("myProfile");
             SessionUser sessionUser = (SessionUser) request.getSession().getAttribute("user");
@@ -41,14 +39,14 @@ public class Profile extends HttpServlet {
         }
         else{
             String[] idAndLogin = userServiceInterface.getIdAndEmailByLogin(login);
+            System.out.println("im here" + idAndLogin);
             if(idAndLogin == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
             stats=userServiceInterface.getStats(Integer.parseInt(idAndLogin[0]));
-            stats.setLogin(idAndLogin[0]); stats.setEmail(idAndLogin[1]);
+            stats.setLogin(login); stats.setEmail(idAndLogin[1]);
         }
-
 
         String json = utils.provideJson(stats);
         System.out.println(json);

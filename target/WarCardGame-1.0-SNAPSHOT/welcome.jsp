@@ -32,6 +32,24 @@
         <p id="winPercentage">Win percentage:</p>
     </div>
 </div>
+
+<div id="EditProfileSection">
+    <div id="changeAvatar">
+        <div id="changeAvatarResult">Result</div>
+        <div id="avatarFirst">Upload your avatar (300x300)px:</div>
+        <div><input type="file" name="file" id="file" /></div>
+        <div><button id="sendAvatar">Upload avatar</button></div>
+    </div>
+    <div id="changeFigure">
+        <div id="changeFigureResult">Result</div>
+        <div id="figureFirst"><input type="text" name="figure" value="Input"/></div>
+        <div><input type="text" name="confirm" value="Confirm"/></div>
+        <div><input type="radio" id="changeLogin" name="figureType" value="Login"/>Login</div>
+        <div><input type="radio" id="changePassword" name="figureType" value="Password"/>Password</div>
+        <div><input type="radio" id="changeEmail" name="figureType" value="Email"/>Email</div>
+        <div><button id="sendChangeFigure">Confirm change</button></div>
+    </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/welcome.js"></script>
 </body>
