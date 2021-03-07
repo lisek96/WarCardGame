@@ -10,5 +10,7 @@ Database: T-SQL
 
 Using remote SQL Server DB https://www.cloudclusters.io/
 
+Started: 02/2021
+Finished: -
 
 
