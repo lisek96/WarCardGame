@@ -4,4 +4,15 @@
               auth="Container"
               type="javax.enterprise.inject.spi.BeanManager"
               factory="org.jboss.weld.resources.ManagerObjectFactory" />
+    <Resource name="jdbc/WarCardGame"
+              auth="Container"
+              type="javax.sql.DataSource"
+              initialSize="1"
+              maxActive="100"
+              maxIdle="30"
+              maxWaitMillis="10000"
+              username="admin"
+              password="qweqwe12Q11"
+              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              url="jdbc:sqlserver://mssql-20436-0.cloudclusters.net:20480;databaseName=WarCardGame;user=admin;password=qweqwe12Q11;" />
 </Context>

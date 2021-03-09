@@ -8,6 +8,7 @@
 </head>
 <body>
 <div id="welcome">Welcome <c:out value="${sessionScope.user.login}"></c:out>!</div>
+<div id="loading" class="lds-dual-ring"></div>
 <button id="play" class="buttons">Play</button>
 <button id="findPlayer" class="buttons">Find player</button>
 <button id="editProfile" class="buttons">Edit profile</button>

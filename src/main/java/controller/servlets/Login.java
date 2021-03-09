@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
         if (loginAttemptInfo.equals("authed")) {
             user = userService.createUserForSessionAfterSuccessfulLogin(login);
             request.getSession().setAttribute("user", user);
-            request.getRequestDispatcher("welcome.jsp").forward(request, response);
+            response.sendRedirect("/WarCardGame_war_exploded/welcome.jsp");
         } else {
             request.setAttribute("loginAttemptInfo", loginAttemptInfo);
             request.getRequestDispatcher("/").forward(request, response);
