@@ -1,12 +1,15 @@
 package model.user;
 
 public class User {
-    private long id;
+    private int id;
     private String login;
     private String salt;
     private String password;
     private String email;
     private boolean activated;
+    int wins;
+    int loses;
+    String avatarPath;
 
     public User(String login, String salt, String password, String email) {
         this.login = login;
@@ -15,11 +18,11 @@ public class User {
         this.email = email;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

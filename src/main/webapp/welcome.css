@@ -1,10 +1,198 @@
 body{
-    background-color: black;
+    background-color: darkgreen;
 }
 
 #welcome{
     font-size: 46px;
     color: limegreen;
-    margin: 10% auto auto;
+    margin: 5% auto auto;
     width: 300px;
 }
+
+#play{
+    margin-left: 170px;
+}
+
+#cardsNumber{
+    margin-left: 170px;
+}
+
+.info{
+    margin-left: 5px;
+    margin-top: 5px;
+    background-color: black;
+    color: limegreen;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 3px;
+    width: 290px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.buttons{
+    margin-left: 5px;
+    display: inline-block;
+    width: 300px;
+    height: 150px;
+    margin-top: 100px;
+    font-size: 40px;
+    color: limegreen;
+    background-color: black;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 3px;
+}
+
+#MyProfileSection{
+    display: block;
+}
+
+
+#MyProfileSection > div{
+    margin-top: 50px;
+    display: inline-block;
+    vertical-align: top;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 3px;
+}
+
+#avatarDiv{
+    height: 300px;
+    width: 300px;
+    margin-left: 600px;
+}
+
+#figures{
+    height: 300px;
+    width: 300px;
+    background-color: black;
+    color: limegreen;
+    font-size: 18px;
+    width: 300px;
+    margin-left: 20px;
+}
+
+#stats{
+}
+#figures>p {
+    margin-left: 5px;
+}
+
+#EditProfileSection{
+    display: none;
+}
+
+#EditProfileSection > div{
+    margin-top: 50px;
+    display: inline-block;
+    vertical-align: top;
+    border-color: limegreen;
+    border-style: solid;
+    border-width: 1px;
+    background-color: black;
+    color: green;
+    width: 295px;
+    height: 260px;
+}
+
+#changeAvatar{
+    margin-left: 640px;
+}
+
+#changeFigure{
+    margin-left: 15px;
+}
+
+#changeFigure > div{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+#changeFigure input[type=text]{
+    background-color: green;
+    color: black;
+    font-size: 20px;
+    width: 260px;
+}
+
+#changeAvatar > div{
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+button{
+    background-color: green;
+    color: black;
+    width: 260px;
+    font-size: 20px;
+}
+
+#changeAvatarResult{
+    padding-top: 50px;
+}
+
+button:hover{
+    background-color: limegreen;
+    color: black;
+}
+
+input:focus{
+    background-color: limegreen;
+    color: black;
+}
+
+#figureFirst{
+    padding-top: 20px;
+}
+
+#avatarFirst{
+    padding-top: 40px;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 128px;
+    height: 128px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid lawngreen;
+    border-color: lawngreen transparent lawngreen transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+#loading{
+    display: none;
+    margin-top: 20px;
+    margin-left: 850px;
+}
+
+
+
+
+

@@ -1,18 +1,21 @@
 package service.user;
 
-import model.activactionLink.ActivationLink;
 import model.user.SessionUser;
+import model.user.Stats;
 import model.user.User;
 import repository.user.UserDAO;
 import service.activationLink.ActivationLinkInterface;
-import service.activationLink.ActivationLinkService;
 import service.utilites.PasswordEncoder;
+import service.utilites.ThrowingComparator;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class UserService implements UserServiceInterface {
     @Inject
@@ -66,6 +69,109 @@ public class UserService implements UserServiceInterface {
         SessionUser sessionUser = new SessionUser(id, login, email);
         return sessionUser;
     }
+
+    @Override
+    public String getEmailByLogin(String login) {
+        return userDAO.getEmailByLogin(login);
+    }
+
+    @Override
+    public int getRanking(int idUser) {
+        int[] winsAndLoses = userDAO.getWinsAndLoses(idUser);
+        int wins=winsAndLoses[0], loses=winsAndLoses[1];
+        return evaluateRanking(wins, loses);
+    }
+
+    @Override
+    public Stats getStats(int idUser) {
+        int[] winsAndLoses = userDAO.getWinsAndLoses(idUser);
+        int wins=winsAndLoses[0], loses=winsAndLoses[1];
+        int ranking=evaluateRanking(wins, loses), matches = evaluateNumberOfMatches(wins, loses);
+        double winPercentage = evaluateWinPercentage(wins, loses);
+        return new Stats(wins, loses, matches, winPercentage, ranking);
+    }
+    @Override
+    public Stats getStats(int wins, int loses) {
+        int ranking=evaluateRanking(wins, loses), matches = evaluateNumberOfMatches(wins, loses);
+        double winPercentage = evaluateWinPercentage(wins, loses);
+        return new Stats(wins, loses, matches, winPercentage, ranking);
+    }
+
+    @Override
+    public void incrementWins(int idUser) {
+        userDAO.incrementWins(idUser);
+    }
+
+    @Override
+    public void incrementLoses(int idUser) {
+        userDAO.incrementLoses(idUser);
+    }
+
+    @Override
+    public List<Stats> createRanking(int topUsers) throws SQLException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        List<List<String>> listOfRows = userDAO.getLoginWinsLosesOfUsers(topUsers);
+        List<Stats> listOfStats = loginWinsLosesToStats(listOfRows);
+        List<Stats> sortedListByRanking = sortListOfStatsByStatsAttribute("Ranking", listOfStats);
+        return sortedListByRanking;
+    }
+
+    @Override
+    public void changePassword(int idUser) {
+
+    }
+
+    @Override
+    public void changeEmail(int idUser) {
+
+    }
+
+    @Override
+    public void changeLogin(int idUser) {
+
+    }
+
+    @Override
+    public void changeAvatarPath(int idUser) {
+
+    }
+
+    @Override
+    public String[] getIdAndEmailByLogin(String login) {
+        return userDAO.getIdAndEmailByLogin(login);
+    }
+
+    public List<Stats> sortListOfStatsByStatsAttribute(String statsArg, List<Stats> listOfStats) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method m = Stats.class.getMethod("get"+statsArg);
+        List<Stats> listOfStatsDuplicate = new ArrayList<>(listOfStats);
+        Collections.sort(listOfStatsDuplicate, (ThrowingComparator<Stats>) (s1, s2) -> (int) ((double) m.invoke(s2) - (double) m.invoke(s1)));
+        return listOfStatsDuplicate;
+    }
+
+
+    private List<Stats> loginWinsLosesToStats(List<List<String>> list){
+        List<Stats> statsList = new ArrayList<>();
+        for(List<String> innerList : list){
+            Stats stats = getStats(Integer.parseInt(innerList.get(1)), Integer.parseInt(innerList.get(2)));
+            stats.setLogin(innerList.get(0));
+            statsList.add(stats);
+        }
+        return statsList;
+    }
+
+
+    private int evaluateRanking(int wins, int loses){
+        return 1500+((wins-loses)*25);
+    }
+
+    private double evaluateWinPercentage(int wins, int loses){
+        if((wins+loses)==0) return 0;
+        return wins*100/(wins+loses);
+    }
+
+    private int evaluateNumberOfMatches(int wins ,int loses){
+        return wins+loses;
+    }
+
 
     private boolean validateUserPassword(String hashedPassword, String salt, String inputPassword) {
         try {

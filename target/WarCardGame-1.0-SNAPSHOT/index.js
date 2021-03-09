@@ -39,5 +39,3 @@ document.getElementById("goBack").onmouseenter = goBack1;
 document.getElementById("goBack").onmouseout = goBack2;
 document.getElementById("goBack").onclick = goBack3;
 
-
-

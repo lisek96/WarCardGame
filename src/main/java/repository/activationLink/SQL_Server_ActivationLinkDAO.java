@@ -1,11 +1,8 @@
 package repository.activationLink;
 
 import model.activactionLink.ActivationLink;
-import repository.SQL_Server_DBConnectionProvider;
+import repository.connection.SQL_Server_DBConnectionProvider;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,7 +22,7 @@ public class SQL_Server_ActivationLinkDAO implements ActivationLinkDAO {
             callableStatement.setString(2, activationLink.getToken());
             callableStatement.setString(3, activationLink.getExpirationDate());
             callableStatement.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -40,7 +37,7 @@ public class SQL_Server_ActivationLinkDAO implements ActivationLinkDAO {
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1,token);
             callableStatement.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -56,7 +53,7 @@ public class SQL_Server_ActivationLinkDAO implements ActivationLinkDAO {
             callableStatement.setString(1, token);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getInt(1);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
