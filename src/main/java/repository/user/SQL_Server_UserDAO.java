@@ -25,7 +25,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setString(3, user.getPassword());
             callableStatement.setString(4, user.getEmail());
             callableStatement.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e ){
             e.printStackTrace();
         }
     }
@@ -43,7 +43,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setString(1, login);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getInt(1);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -53,16 +53,14 @@ public class SQL_Server_UserDAO implements UserDAO {
     public Integer getIDByEmail(String email) {
         CallableStatement callableStatement;
         SQL_Server_DBConnectionProvider sql_server_dbConnectionProvider = new SQL_Server_DBConnectionProvider();
-        try
-
-                (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
+        try (Connection connection = sql_server_dbConnectionProvider.provideConnection()) {
             String sql = "EXEC getIDByEmail ?";
             callableStatement = connection.prepareCall(sql);
             callableStatement.setEscapeProcessing(true);
             callableStatement.setString(1, email);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getInt(1);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -81,7 +79,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             rs.next();
             return new String[]{rs.getString(1), rs.getString(2)};
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -100,7 +98,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setString(1, login);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getString(1);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -119,7 +117,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setString(1, login);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getString(1);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -138,7 +136,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setString(1, login);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) return resultSet.getString(1);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -158,7 +156,7 @@ public class SQL_Server_UserDAO implements UserDAO {
                 callableStatement.setString(1, "false");
             callableStatement.setInt(2, id);
             callableStatement.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -177,7 +175,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             String isActivated = info.getString(1);
             if (isActivated.equals("true")) return true;
             else return false;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -196,7 +194,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             rs.next();
             return new int[]{rs.getInt(1), rs.getInt(2)};
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -213,7 +211,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setEscapeProcessing(true);
             callableStatement.setInt(1, idUser);
             callableStatement.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -228,7 +226,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             callableStatement.setEscapeProcessing(true);
             callableStatement.setInt(1, idUser);
             callableStatement.execute();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -245,7 +243,7 @@ public class SQL_Server_UserDAO implements UserDAO {
             ResultSet rs = callableStatement.executeQuery();
             List<List<String>> listOfRows = Helper.getAllRowsFromResultSetIntoStringList(rs, 3);
             return listOfRows;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;

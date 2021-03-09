@@ -21,7 +21,7 @@ public class SQL_Server_GameDAO implements GameDao {
             ResultSet resultSet = callableStatement.executeQuery();
             resultSet.next();
             return resultSet.getInt(1);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
@@ -38,7 +38,7 @@ public class SQL_Server_GameDAO implements GameDao {
             callableStatement.setInt(1, idGame);
             callableStatement.setString(2, result);
             callableStatement.execute();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

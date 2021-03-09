@@ -22,13 +22,15 @@ function myProfile(){
 }
 
 function findPlayer() {
+    showLoading();
     const login = document.getElementById("playerLogin").value;
     console.log(login);
     $.get("http://localhost:8080/WarCardGame_war_exploded/profile/" + login, function (data) {
         const figures = data
         changeFigures(figures);
     }, "json")
-        .fail(playerNotFound);
+        .fail(playerNotFound)
+        .always(hideLoading());
 }
 
 function playerNotFound() {
@@ -73,7 +75,6 @@ function changeFigures(figures){
     document.getElementById("EditProfileSection").style.display="none";
     document.getElementById("MyProfileSection").style.display = "block"
 }
-
 function changeImage(login){
     let image = new Image();
     image.src = "avatars/" + login + ".jpg";
@@ -81,14 +82,15 @@ function changeImage(login){
         $("#avatar").attr("src", "avatars/default.jpg");
     }
     image.onload = function () {
-        $("#avatar").attr("src", "avatars/" + login + ".jpg");
+        $("#avatar").attr("src", "avatars/" + login + ".jpg" + "");
     }
 }
 
 //avatar upload
 
 function sendAvatar () {
-    let form = $('form')[0];
+    showLoading();
+    let form = $('#form')[0];
     let formData = new FormData(form);
     $.ajax({
         url : "/WarCardGame_war_exploded/upload",
@@ -96,11 +98,19 @@ function sendAvatar () {
         data: formData,
         contentType: false,
         processData: false
-    });
-    console.log("sent");
+    })
+        .done(function (){
+            hideLoading();
+            showResultOfOperation("OK");
+        })
+        .fail(function (){
+            hideLoading();
+            showResultOfOperation("FAIL");
+        });
+
 }
 
-$("#sendAvatar").click(sendAvatar());
+$("#sendAvatar").click(sendAvatar);
 
 
 $("#editProfile").click(editProfile);
@@ -108,6 +118,30 @@ $("#editProfile").click(editProfile);
 function editProfile(){
     document.getElementById("MyProfileSection").style.display = "none";
     document.getElementById("EditProfileSection").style.display="block";
+}
+
+function hideLoading(){
+    document.getElementById("loading").style.display="none";
+}
+
+function showLoading(){
+    document.getElementById("loading").style.display="block";
+}
+
+function showResultOfOperation(result, failMessage){
+    if(result==="OK") {
+        document.getElementById("result").style.color = "limegreen";
+        document.getElementById("result").innerText = "Success"
+    }
+    else if(result==="FAIL"){
+        document.getElementById("result").style.color = "red";
+        document.getElementById("result").innerText = "Error, " + failMessage;
+    }
+    document.getElementById("result").style.display="block";
+}
+
+function hideResultOfOperation(){
+    document.getElementById("result").style.display="none";
 }
 
 

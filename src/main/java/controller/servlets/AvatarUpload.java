@@ -14,20 +14,25 @@ import java.io.*;
 @WebServlet(name = "AvatarUpload", urlPatterns = "/upload")
 @MultipartConfig
 public class AvatarUpload extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException{
 
         final SessionUser user = (SessionUser) request.getSession().getAttribute("user");
         final String path =  "C:\\War\\WarCardGame\\src\\main\\webapp\\avatars\\" + user.getLogin() + ".jpg"; // need to rework this path
-        final Part filePart = request.getPart("file");
-
-        File avatar = new File(path);avatar.createNewFile();
-        OutputStream out = new FileOutputStream(avatar);
-        InputStream fileContent = filePart.getInputStream();
-        byte[] bytes = fileContent.readAllBytes();
-        out.write(bytes);
-
-        fileContent.close();
-        out.close();
+        try {
+            File avatar = new File(path);
+            final Part filePart = request.getPart("file");
+            avatar.createNewFile();
+            OutputStream out = new FileOutputStream(avatar);
+            InputStream fileContent = filePart.getInputStream();
+            byte[] bytes = fileContent.readAllBytes();
+            System.out.println(bytes.length);
+            out.write(bytes);
+            out.flush();
+            fileContent.close();
+            out.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

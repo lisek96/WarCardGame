@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="welcome.css">
 </head>
 <body>
-<div id="welcome">Welcome <c:out value="${sessionScope.user.login}"></c:out>!</div>
-<div id="loading" class="lds-dual-ring"></div>
+<div display="none" id="welcome">Welcome <c:out value="${sessionScope.user.login}"></c:out>!</div>
+<div display="none" id="loading" class="lds-dual-ring"></div>
+<div id="result"></div>
 <button id="play" class="buttons">Play</button>
 <button id="findPlayer" class="buttons">Find player</button>
 <button id="editProfile" class="buttons">Edit profile</button>
@@ -38,7 +39,7 @@
     <div id="changeAvatar">
         <div id="changeAvatarResult">Result</div>
         <div id="avatarFirst">Upload your avatar (300x300)px:</div>
-        <div><input type="file" name="file" id="file" /></div>
+        <div><form id="form" method="POST" action="upload" enctype="multipart/form-data" ><input type="file" name="file" id="file"/></form></div>
         <div><button id="sendAvatar">Upload avatar</button></div>
     </div>
     <div id="changeFigure">

@@ -172,8 +172,8 @@ input:focus{
     height: 128px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid lightblue;
-    border-color: lightblue transparent lightblue transparent;
+    border: 6px solid lawngreen;
+    border-color: lawngreen transparent lawngreen transparent;
     animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
@@ -187,10 +187,11 @@ input:focus{
 
 
 #loading{
-    display: block;
+    display: none;
     margin-top: 20px;
     margin-left: 850px;
 }
+
 
 
 
